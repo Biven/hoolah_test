@@ -44,6 +44,16 @@ public class TransactionReporterTest {
         assertEquals(52.25, report.getAverageValue(), 0.00001);
     }
 
+    @Test
+    public void testEmptyReport() throws IOException {
+        Report report = transactionReporter.buildReport(this.getClass().getResourceAsStream("/hoolah.csv"),
+                "MacLaren",
+                "20/08/2019 12:00:00",
+                "20/08/2019 15:00:00");
+        assertEquals(0, report.getTransactionsCount());
+        assertEquals(0, report.getAverageValue(), 0.00001);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testWrongDateFormat() throws IOException {
         transactionReporter.buildReport(this.getClass().getResourceAsStream("/hoolah.csv"),
